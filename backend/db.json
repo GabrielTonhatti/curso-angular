@@ -17,13 +17,18 @@
     },
     {
       "name": "Geladeira",
-      "price": "1913.99",
+      "price": 1913.99,
       "id": 4
     },
     {
       "name": "Celular",
       "price": 2997.99,
       "id": 5
+    },
+    {
+      "name": "Samsung S20",
+      "price": "4529.45",
+      "id": 6
     }
   ]
 }
