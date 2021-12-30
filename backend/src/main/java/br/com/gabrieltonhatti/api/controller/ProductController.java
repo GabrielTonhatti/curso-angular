@@ -49,7 +49,7 @@ public class ProductController {
     public ResponseEntity<Product> saveProduct(@RequestBody @Validated @NotNull Product product)
             throws NotFoundException {
 
-        if (product.getName().isEmpty()) throw new NotFoundException("O campo nome não pode estar vazio!");
+        if (product.getName().isEmpty()) throw new NotFoundException("O nome não pode estar vazio!");
         else if (product.getPrice() < 0) throw new NotFoundException("O preço não pode ser menor do que 0!");
 
         return ResponseEntity.ok(productRepository.save(product));
