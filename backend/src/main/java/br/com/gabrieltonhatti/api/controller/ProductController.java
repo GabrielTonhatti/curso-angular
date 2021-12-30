@@ -29,14 +29,14 @@ public class ProductController {
     @ApiResponses(@ApiResponse(code = 200, message = "Retorna a lista de produtos"))
     @GetMapping
     public ResponseEntity<Iterable<Product>> getAllProducts() {
-        return ResponseEntity.ok(productRepository.findAll());
+        return ResponseEntity.ok(productRepository.findAllOrder());
     }
 
     @ApiOperation(value = "Retorna uma lista de produtos paginada (Use page e size ao invés de pageNumber e pageSize na hora de fazer a requisição)")
     @ApiResponses(@ApiResponse(code = 200, message = "Retorna a lista de produtos paginada"))
     @GetMapping("/search")
     public ResponseEntity<Page<Product>> getProductsForPage(Pageable pageable) {
-        Page<Product> products = productRepository.findAll(pageable);
+        Page<Product> products = productRepository.findAllOrder(pageable);
         System.out.println(pageable.getPageSize());
 
         return ResponseEntity.ok(products);
