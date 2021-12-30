@@ -4,6 +4,10 @@
     line-height: 1.2;
 }
 
+.home {
+    margin-top: 65px;
+}
+
 .home .subtitle {
     font-size: 1.1rem;
 }
