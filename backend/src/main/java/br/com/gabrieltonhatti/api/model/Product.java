@@ -1,5 +1,7 @@
 package br.com.gabrieltonhatti.api.model;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
@@ -7,13 +9,16 @@ import javax.validation.constraints.*;
 @Table(name = "products")
 public class Product {
 
+    @ApiModelProperty(value = "Código do produto")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @ApiModelProperty(value = "Nome do produto")
     @NotNull
     private String name;
 
+    @ApiModelProperty(value = "Preço do produto")
     @NotNull
     private double price;
 
