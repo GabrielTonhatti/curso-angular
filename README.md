@@ -6,6 +6,7 @@
 
 - [Sobre](#-sobre)
 - [Tecnologias usadas](#-tecnologias-usadas)
+- [Documentação da API](#-documentacao-da-api)
 - [Hospedagens](#-hospedagens)
 - [Como fazer o download do projeto](#-como-fazer-o-download-do-projeto)
 
@@ -30,6 +31,14 @@ Este projeto foi desenvolvido usando as seguintes tecnologias.
 - PostgreSQL
 - VS Code
 - Intellij IDEA
+
+---
+
+## Documentação da API
+
+[Swagger](https://crud-curso-angular.herokuapp.com/swagger-ui/index.html)
+
+![projeto.gif](./img/api-documentation.png)
 
 ---
 
