@@ -34,7 +34,7 @@ Este projeto foi desenvolvido usando as seguintes tecnologias.
 
 ---
 
-## Documentação da API
+## 📄 Documentação da API
 
 [Swagger](https://crud-curso-angular.herokuapp.com/swagger-ui/index.html)
 
