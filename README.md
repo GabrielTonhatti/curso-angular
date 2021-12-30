@@ -6,7 +6,7 @@
 
 - [Sobre](#-sobre)
 - [Tecnologias usadas](#-tecnologias-usadas)
-- [Documentação da API](#-documentacao-da-api)
+- [Documentação da API](#-documentação-da-api)
 - [Hospedagens](#-hospedagens)
 - [Como fazer o download do projeto](#-como-fazer-o-download-do-projeto)
 
