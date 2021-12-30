@@ -1,3 +1,7 @@
+mat-card {
+    margin-top: 65px;
+}
+
 form {
     display: flex;
     flex-direction: column;

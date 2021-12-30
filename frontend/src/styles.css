@@ -17,6 +17,7 @@ body {
     vertical-align: middle;
 }
 
+/* Personalização do Scroll */
 body::-webkit-scrollbar {
     width: 13px;
 }
