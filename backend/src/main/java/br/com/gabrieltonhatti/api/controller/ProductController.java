@@ -46,9 +46,23 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<Product> saveProduct(@RequestBody @Validated @NotNull Product product) throws NotFoundException {
+    public ResponseEntity<Product> saveProduct(@RequestBody @Validated @NotNull Product product)
+            throws NotFoundException {
 
-        if (product.getName().isEmpty()) throw new NotFoundException("O produto deve conter um nome válido!");
+        if (product.getName().isEmpty()) throw new NotFoundException("O campo nome não pode estar vazio!");
+        else if (product.getPrice() < 0) throw new NotFoundException("O preço não pode ser menor do que 0!");
+
+        return ResponseEntity.ok(productRepository.save(product));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Product> updateProduct(@RequestBody @Validated @NotNull Product product,
+                                                 @PathVariable Integer id) throws NotFoundException {
+
+        if (product.getName().isEmpty()) throw new NotFoundException("O nome não pode estar vazio!");
+        else if (product.getPrice() < 0) throw new NotFoundException("O preço não pode ser menor do que 0!");
+
+        product.setId(id);
 
         return ResponseEntity.ok(productRepository.save(product));
     }

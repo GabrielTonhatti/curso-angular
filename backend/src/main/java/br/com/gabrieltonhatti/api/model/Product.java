@@ -15,7 +15,6 @@ public class Product {
     private String name;
 
     @NotNull
-    @Min(value = 0)
     private double price;
 
     public Product() {
