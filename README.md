@@ -44,7 +44,7 @@ Este projeto foi desenvolvido usando as seguintes tecnologias.
 
 ## 🚀 Hospedagens
 
-Fronend:
+Frontend:
 
 [Netlify - Crud Angular + Spring Boot ](https://crud-angular-springboot.netlify.app/)
 
