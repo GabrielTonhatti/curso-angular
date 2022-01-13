@@ -69,5 +69,4 @@ Via SSH:
 ```
 
 ---
-
 Developed ❤ by Gabriel Tonhatti
