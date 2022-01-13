@@ -46,7 +46,7 @@ Este projeto foi desenvolvido usando as seguintes tecnologias.
 
 Frontend:
 
-[Netlify - Crud Angular + Spring Boot ](https://crud-angular-springboot.netlify.app/)
+[Vercel - Crud Angular + Spring Boot ](https://crud-angular-springboot.vercel.app/)
 
 Backend (API):
 
