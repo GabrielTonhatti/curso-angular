@@ -5,29 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
 
-// TODO: replace this with real data from your application
-const EXAMPLE_DATA: Product[] = [
-  { id: 1, name: 'Hydrogen', price: 9.9 },
-  { id: 2, name: 'Helium', price: 9.9 },
-  { id: 3, name: 'Lithium', price: 9.9 },
-  { id: 4, name: 'Beryllium', price: 9.9 },
-  { id: 5, name: 'Boron', price: 9.9 },
-  { id: 6, name: 'Carbon', price: 9.9 },
-  { id: 7, name: 'Nitrogen', price: 9.9 },
-  { id: 8, name: 'Oxygen', price: 9.9 },
-  { id: 9, name: 'Fluorine', price: 9.9 },
-  { id: 10, name: 'Neon', price: 9.9 },
-  { id: 11, name: 'Sodium', price: 9.9 },
-  { id: 12, name: 'Magnesium', price: 9.9 },
-  { id: 13, name: 'Aluminum', price: 9.9 },
-  { id: 14, name: 'Silicon', price: 9.9 },
-  { id: 15, name: 'Phosphorus', price: 9.9 },
-  { id: 16, name: 'Sulfur', price: 9.9 },
-  { id: 17, name: 'Chlorine', price: 9.9 },
-  { id: 18, name: 'Argon', price: 9.9 },
-  { id: 19, name: 'Potassium', price: 9.9 },
-  { id: 20, name: 'Calcium', price: 9.9 },
-];
+// let PRODUCTS: Array<Product> = [];
 
 /**
  * Data source for the ProductRead2 view. This class should
@@ -35,12 +13,16 @@ const EXAMPLE_DATA: Product[] = [
  * (including sorting, pagination, and filtering).
  */
 export class ProductRead2DataSource extends DataSource<Product> {
-  data: Product[] = EXAMPLE_DATA;
+  product: Array<Product>;
+  // data: Product[] = EXAMPLE_DATA;
+  data: Array<Product>;
   paginator: MatPaginator | undefined;
   sort: MatSort | undefined;
 
-  constructor() {
+  constructor(products: Array<Product>) {
     super();
+    this.product = products;
+    this.data = this.product;
   }
 
   /**
