@@ -1,9 +1,10 @@
 package br.com.gabrieltonhatti.api.controller;
 
+import br.com.gabrieltonhatti.api.dto.ProductDTO;
 import br.com.gabrieltonhatti.api.exception.IdNotFoundException;
 import br.com.gabrieltonhatti.api.model.ApiException;
 import br.com.gabrieltonhatti.api.model.Product;
-import br.com.gabrieltonhatti.api.repository.ProductRepository;
+import br.com.gabrieltonhatti.api.service.ProductService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -15,31 +16,30 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.stream.Stream;
+
 @RestController
 @RequestMapping(path = "/products", produces = "application/json;charset=utf-8")
 public class ProductController {
 
-    private final ProductRepository productRepository;
+    private final ProductService productService;
 
-    public ProductController(ProductRepository productRepository) {
-        this.productRepository = productRepository;
+    public ProductController(ProductService productService) {
+        this.productService = productService;
     }
 
     @ApiOperation(value = "Retorna uma lista de produtos")
     @ApiResponses(@ApiResponse(code = 200, message = "Retorna a lista de produtos"))
     @GetMapping
-    public ResponseEntity<Iterable<Product>> getAllProducts() {
-        return ResponseEntity.ok(productRepository.findAllOrder());
+    public ResponseEntity<Stream<ProductDTO>> getAllProducts() {
+        return ResponseEntity.ok(productService.findAll());
     }
 
     @ApiOperation(value = "Retorna uma lista de produtos paginada (Use page e size ao invés de pageNumber e pageSize na hora de fazer a requisição)")
     @ApiResponses(@ApiResponse(code = 200, message = "Retorna a lista de produtos paginada"))
     @GetMapping("/search")
-    public ResponseEntity<Page<Product>> getProductsForPage(Pageable pageable) {
-        Page<Product> products = productRepository.findAllOrder(pageable);
-        System.out.println(pageable.getPageSize());
-
-        return ResponseEntity.ok(products);
+    public ResponseEntity<Page<ProductDTO>> getProductsForPage(Pageable pageable) {
+                return ResponseEntity.ok(productService.findAllPage(pageable));
     }
 
     @ApiOperation(value = "Retorna o produto pelo ID")
@@ -48,13 +48,10 @@ public class ProductController {
             @ApiResponse(code = 404, message = "Produto não encontrado")
     })
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable int id) throws IdNotFoundException {
-
+    public ResponseEntity<ProductDTO> getProductById(@PathVariable Integer id) throws IdNotFoundException {
         return ResponseEntity
                 .status(200)
-                .body(productRepository
-                        .findById(id)
-                        .orElseThrow(() -> new IdNotFoundException("Produto não encontrado!")));
+                .body(productService.findById(id));
     }
 
     @ApiOperation(value = "Retorna o produto inserido")
@@ -63,13 +60,9 @@ public class ProductController {
             @ApiResponse(code = 404, message = "Lançou uma exceção de nome vazio ou preço inválido")
     })
     @PostMapping(consumes = "application/json;charset=utf-8")
-    public ResponseEntity<Product> saveProduct(@RequestBody @Validated @NotNull Product product)
+    public ResponseEntity<ProductDTO> saveProduct(@RequestBody @Validated @NotNull Product product)
             throws NotFoundException {
-
-        if (product.getName().isEmpty()) throw new NotFoundException("O nome não pode estar vazio!");
-        else if (product.getPrice() < 0) throw new NotFoundException("O preço não pode ser menor do que 0!");
-
-        return ResponseEntity.ok(productRepository.save(product));
+        return ResponseEntity.ok(productService.save(product));
     }
 
     @ApiOperation(value = "Retorna o produto atualizado pelo ID")
@@ -78,15 +71,9 @@ public class ProductController {
             @ApiResponse(code = 404, message = "Produto não encontrado!")
     })
     @PutMapping(path = "/{id}", consumes = "application/json;charset=utf-8")
-    public ResponseEntity<Product> updateProduct(@RequestBody @Validated @NotNull Product product,
-                                                 @PathVariable Integer id) throws NotFoundException {
-
-        if (product.getName().isEmpty()) throw new NotFoundException("O nome não pode estar vazio!");
-        else if (product.getPrice() < 0) throw new NotFoundException("O preço não pode ser menor do que 0!");
-
-        product.setId(id);
-
-        return ResponseEntity.ok(productRepository.save(product));
+    public ResponseEntity<ProductDTO> updateProduct(@RequestBody @Validated @NotNull Product product,
+                                                    @PathVariable Integer id) throws NotFoundException {
+        return ResponseEntity.ok(productService.update(product, id));
     }
 
     @ApiOperation(value = "Exclui o produto pelo ID")
@@ -96,15 +83,7 @@ public class ProductController {
     })
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiException> deleteProductById(@PathVariable Integer id) throws IdNotFoundException {
-
-        productRepository
-                .findById(id)
-                .orElseThrow(() -> new IdNotFoundException("O ID do produto não foi encontrado!"));
-
-        productRepository.deleteById(id);
-
-        return ResponseEntity.ok(new ApiException("Produto deletado com sucesso!", 200));
-
+        return ResponseEntity.ok(productService.deleteByid(id));
     }
 
 }
