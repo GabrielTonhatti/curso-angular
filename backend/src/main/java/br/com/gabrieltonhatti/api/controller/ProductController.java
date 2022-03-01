@@ -12,6 +12,7 @@ import javassist.NotFoundException;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -62,7 +63,7 @@ public class ProductController {
     @PostMapping(consumes = "application/json;charset=utf-8")
     public ResponseEntity<ProductDTO> saveProduct(@RequestBody @Validated @NotNull Product product)
             throws NotFoundException {
-        return ResponseEntity.ok(productService.save(product));
+        return ResponseEntity.status(HttpStatus.CREATED).body(productService.save(product));
     }
 
     @ApiOperation(value = "Retorna o produto atualizado pelo ID")
