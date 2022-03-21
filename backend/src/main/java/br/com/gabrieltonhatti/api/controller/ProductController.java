@@ -5,6 +5,7 @@ import br.com.gabrieltonhatti.api.exception.IdNotFoundException;
 import br.com.gabrieltonhatti.api.model.ApiException;
 import br.com.gabrieltonhatti.api.model.Product;
 import br.com.gabrieltonhatti.api.service.ProductService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.stream.Stream;
 
 @RestController
+@Api(tags = "Produtos")
 @RequestMapping(path = "/products", produces = "application/json;charset=utf-8")
 public class ProductController {
 
@@ -40,7 +42,7 @@ public class ProductController {
     @ApiResponses(@ApiResponse(code = 200, message = "Retorna a lista de produtos paginada"))
     @GetMapping("/search")
     public ResponseEntity<Page<ProductDTO>> getProductsForPage(Pageable pageable) {
-                return ResponseEntity.ok(productService.findAllPage(pageable));
+        return ResponseEntity.ok(productService.findAllPage(pageable));
     }
 
     @ApiOperation(value = "Retorna o produto pelo ID")
